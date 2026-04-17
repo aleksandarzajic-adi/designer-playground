@@ -7,8 +7,15 @@ export interface ClaudeCodeOptions {
 }
 
 function runClaude(prompt: string, opts: ClaudeCodeOptions = {}): Promise<string> {
-  const bin = opts.bin ?? 'claude';
-  const args = ['-p', '--output-format', 'text', ...(opts.extraArgs ?? [])];
+  const bin = opts.bin ?? process.env.CLAUDE_BIN ?? 'claude';
+  const defaultArgs = [
+    '-p',
+    '--output-format',
+    'text',
+    '--allowedTools',
+    'Read,Glob,Grep',
+  ];
+  const args = [...defaultArgs, ...(opts.extraArgs ?? [])];
 
   return new Promise((resolve, reject) => {
     const proc = spawn(bin, args, {

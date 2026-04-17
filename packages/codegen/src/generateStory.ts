@@ -14,22 +14,77 @@ export interface StoryResult {
   filePath: string;
 }
 
+const STATE_KEYS = new Set(['state', 'status']);
+const STATE_VALUE_MAP: Record<string, string> = {
+  disabled: 'disabled',
+  loading: 'loading',
+  invalid: 'invalid',
+  error: 'invalid',
+  selected: 'selected',
+  readonly: 'readonly',
+};
+
+const camelKey = (k: string) =>
+  k
+    .replace(/[_\s-]+(.)/g, (_, c: string) => c.toUpperCase())
+    .replace(/^(.)/, (_, c: string) => c.toLowerCase());
+
+const camelValue = (v: string) =>
+  v
+    .toLowerCase()
+    .replace(/[_\s-]+(.)/g, (_, c: string) => c.toUpperCase());
+
+const capIdent = (s: string) => s.replace(/[^a-zA-Z0-9]/g, '').replace(/^(.)/, (_, c) => c.toUpperCase());
+
 function renderStory(component: RegistryComponent): string {
-  const variantEntries = Object.entries(component.variants ?? {});
-  const variantControls = variantEntries
-    .map(
-      ([name, values]) =>
-        `    ${name}: { control: 'select', options: [${values.map((v) => `'${v}'`).join(', ')}] }`,
-    )
+  const normalized: Record<string, string[]> = {};
+  const states = new Set<string>();
+
+  for (const [rawKey, rawValues] of Object.entries(component.variants ?? {})) {
+    const key = camelKey(rawKey);
+    if (STATE_KEYS.has(key.toLowerCase())) {
+      for (const v of rawValues) {
+        const mapped = STATE_VALUE_MAP[v.toLowerCase()];
+        if (mapped) states.add(mapped);
+      }
+      continue;
+    }
+    const deduped = Array.from(new Set(rawValues.map(camelValue)));
+    if (deduped.length > 0) normalized[key] = deduped;
+  }
+
+  const entries = Object.entries(normalized);
+  const controls = entries
+    .map(([key, values]) => `    ${key}: { control: 'select', options: [${values.map((v) => `'${v}'`).join(', ')}] }`)
     .join(',\n');
 
-  const variantStories = variantEntries
-    .flatMap(([name, values]) =>
+  const stateControls = [...states]
+    .map((s) => `    ${s}: { control: 'boolean' }`)
+    .join(',\n');
+
+  const allControls = [controls, stateControls].filter(Boolean).join(',\n');
+
+  const usedNames = new Set<string>(['Default']);
+  const variantStories = entries
+    .flatMap(([key, values]) =>
       values.map((value) => {
-        const storyName = `${cap(name)}${cap(value)}`;
-        return `export const ${storyName}: Story = { args: { ${name}: '${value}' } };`;
+        let storyName = `${capIdent(key)}${capIdent(value)}`;
+        let suffix = 2;
+        while (usedNames.has(storyName)) storyName = `${capIdent(key)}${capIdent(value)}${suffix++}`;
+        usedNames.add(storyName);
+        return `export const ${storyName}: Story = { args: { ${key}: '${value}' } };`;
       }),
     )
+    .join('\n');
+
+  const stateStories = [...states]
+    .map((s) => {
+      let storyName = capIdent(s);
+      let suffix = 2;
+      while (usedNames.has(storyName)) storyName = `${capIdent(s)}${suffix++}`;
+      usedNames.add(storyName);
+      return `export const ${storyName}: Story = { args: { ${s}: true } };`;
+    })
     .join('\n');
 
   return `import type { Meta, StoryObj } from '@storybook/react';
@@ -39,17 +94,16 @@ const meta: Meta<typeof ${component.exportName}> = {
   title: 'Components/${component.name}',
   component: ${component.exportName},
   args: { children: '${component.name}' },
-${variantControls ? `  argTypes: {\n${variantControls}\n  },\n` : ''}};
+${allControls ? `  argTypes: {\n${allControls}\n  },\n` : ''}};
 
 export default meta;
 type Story = StoryObj<typeof ${component.exportName}>;
 
 export const Default: Story = {};
 ${variantStories}
+${stateStories}
 `;
 }
-
-const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export function generateStory(component: RegistryComponent, ctx: StoryContext): StoryResult {
   const target = resolve(ctx.storybookRoot, 'stories', `${component.name}.stories.tsx`);

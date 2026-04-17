@@ -1,23 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Badge, Stack } from '@dp/ui';
+import { Badge } from '@dp/ui';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
   component: Badge,
   args: { children: 'Badge' },
+  argTypes: {
+    tone: { control: 'select', options: ['neutral', 'accent', 'success', 'warning', 'danger'] }
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Tones: Story = {
-  render: () => (
-    <Stack direction="row" gap={2}>
-      <Badge>Neutral</Badge>
-      <Badge $tone="accent">Accent</Badge>
-      <Badge $tone="success">Success</Badge>
-      <Badge $tone="warning">Warning</Badge>
-      <Badge $tone="danger">Danger</Badge>
-    </Stack>
-  ),
-};
+export const Default: Story = {};
+export const ToneNeutral: Story = { args: { tone: 'neutral' } };
+export const ToneAccent: Story = { args: { tone: 'accent' } };
+export const ToneSuccess: Story = { args: { tone: 'success' } };
+export const ToneWarning: Story = { args: { tone: 'warning' } };
+export const ToneDanger: Story = { args: { tone: 'danger' } };
+

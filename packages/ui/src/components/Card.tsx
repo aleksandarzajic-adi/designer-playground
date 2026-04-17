@@ -1,9 +1,12 @@
+import { color, radius, shadow, space } from '@dp/tokens';
 import styled from 'styled-components';
-import { color, space, radius, shadow } from '@dp/tokens';
 
 export interface CardProps {
   elevation?: 'none' | 'sm' | 'md' | 'lg';
   padding?: keyof typeof space;
+    assetType?: CardAssetType;
+    variant?: CardVariant;
+    direction?: CardDirection;
 }
 
 export const Card = styled.div<{ $elevation?: CardProps['elevation']; $padding?: CardProps['padding'] }>`
@@ -17,3 +20,7 @@ export const Card = styled.div<{ $elevation?: CardProps['elevation']; $padding?:
     return shadow[e];
   }};
 `;
+
+export type CardAssetType = 'icon' | 'image';
+export type CardVariant = 'stroke' | 'default';
+export type CardDirection = 'horizontal' | 'vertical';

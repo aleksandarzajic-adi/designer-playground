@@ -12,6 +12,7 @@ import {
 import { ClaudeCodeClient } from './claudeCode';
 import { SYSTEM_PROMPT, componentPrompt } from './prompts';
 import { specFromSnapshot } from './specFromSnapshot';
+import { renderFromArchetype } from './templates';
 
 export interface GenerateContext {
   uiPackageRoot: string;
@@ -21,7 +22,7 @@ export interface GenerateContext {
 }
 
 export type GenerateOutcome =
-  | { kind: 'created'; componentName: string; filePath: string }
+  | { kind: 'created'; source: 'template' | 'claude'; componentName: string; filePath: string }
   | {
       kind: 'updated';
       componentName: string;
@@ -94,6 +95,11 @@ async function createNew(
   registry: Registry,
   ctx: GenerateContext,
 ): Promise<GenerateOutcome> {
+  const templated = renderFromArchetype(snapshot);
+  if (templated) {
+    return writeComponent(snapshot, templated, registry, ctx, 'template');
+  }
+
   const client = claudeFor(ctx);
   const generated = await client.completeJson<{
     type: 'create';
@@ -102,23 +108,33 @@ async function createNew(
     source: string;
   }>(SYSTEM_PROMPT, componentPrompt(snapshot));
 
-  const componentDir = resolve(ctx.uiPackageRoot, 'src/components', generated.componentName);
-  const target = resolve(componentDir, generated.fileName);
+  return writeComponent(snapshot, generated, registry, ctx, 'claude');
+}
+
+function writeComponent(
+  snapshot: ExtractedComponent,
+  gen: { componentName: string; fileName: string; source: string },
+  registry: Registry,
+  ctx: GenerateContext,
+  source: 'template' | 'claude',
+): GenerateOutcome {
+  const componentDir = resolve(ctx.uiPackageRoot, 'src/components', gen.componentName);
+  const target = resolve(componentDir, gen.fileName);
 
   if (!ctx.dryRun) {
     mkdirSync(dirname(target), { recursive: true });
-    writeFileSync(target, generated.source, 'utf8');
+    writeFileSync(target, gen.source, 'utf8');
     writeFileSync(
       resolve(componentDir, 'index.ts'),
-      `export * from './${generated.fileName.replace(/\.tsx$/, '')}';\n`,
+      `export * from './${gen.fileName.replace(/\.tsx$/, '')}';\n`,
       'utf8',
     );
   }
 
   upsertComponent(registry, {
-    name: generated.componentName,
-    filePath: `packages/ui/src/components/${generated.componentName}/${generated.fileName}`,
-    exportName: generated.componentName,
+    name: gen.componentName,
+    filePath: `packages/ui/src/components/${gen.componentName}/${gen.fileName}`,
+    exportName: gen.componentName,
     props: Object.entries(snapshot.variants.propertyDefinitions).map(([name, values]) => ({
       name,
       type: values.map((v) => `'${v}'`).join(' | '),
@@ -130,5 +146,5 @@ async function createNew(
   });
   if (!ctx.dryRun) saveRegistry(registry, ctx.registryPath);
 
-  return { kind: 'created', componentName: generated.componentName, filePath: target };
+  return { kind: 'created', source, componentName: gen.componentName, filePath: target };
 }

@@ -12,19 +12,30 @@ const STATE_VALUE_MAP: Record<string, string> = {
   readOnly: 'readonly',
 };
 
+const normalizeKey = (k: string) =>
+  k
+    .replace(/[_\s-]+(.)/g, (_, c) => c.toUpperCase())
+    .replace(/^(.)/, (_, c) => c.toLowerCase());
+
+const normalizeValue = (v: string) =>
+  v
+    .toLowerCase()
+    .replace(/[_\s-]+(.)/g, (_, c) => c.toUpperCase());
+
 export function specFromSnapshot(snapshot: ExtractedComponent): ComponentSpec {
   const variants: Record<string, string[]> = {};
   const states = new Set<string>();
 
-  for (const [key, values] of Object.entries(snapshot.variants.propertyDefinitions)) {
+  for (const [rawKey, rawValues] of Object.entries(snapshot.variants.propertyDefinitions)) {
+    const key = normalizeKey(rawKey);
     if (STATE_PROP_NAMES.has(key.toLowerCase())) {
-      for (const v of values) {
+      for (const v of rawValues) {
         const mapped = STATE_VALUE_MAP[v.toLowerCase()];
         if (mapped) states.add(mapped);
       }
       continue;
     }
-    variants[key] = [...values];
+    variants[key] = rawValues.map(normalizeValue);
   }
 
   for (const [k, v] of Object.entries(snapshot.variants.fromNameConvention)) {

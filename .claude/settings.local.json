@@ -4,7 +4,11 @@
       "Bash(pnpm --filter @dp/diff-engine build)",
       "Bash(pnpm --filter @dp/codegen build)",
       "Bash(pnpm --filter @dp/ui build)",
-      "Bash(pnpm install *)"
+      "Bash(pnpm install *)",
+      "Bash(pnpm ds:pull)",
+      "Bash(node -e \"const d=require\\('./.extracted/components.json'\\); const counts={}; d.components.forEach\\(c=>{counts[c.type]=\\(counts[c.type]||0\\)+1}\\); console.log\\('types:',counts\\); console.log\\('total:',d.components.length\\); console.log\\('first 20 names:'\\); d.components.slice\\(0,20\\).forEach\\(c=>console.log\\(' -',c.type,':',c.name\\)\\);\")",
+      "Bash(node -e \"const d=require\\('./.extracted/components.json'\\); const sets=d.components.filter\\(c=>c.type==='component-set'\\); console.log\\('component-sets \\('+sets.length+'\\):'\\); sets.forEach\\(s=>console.log\\(' -',s.name,'→ variants:',Object.keys\\(s.variants.propertyDefinitions\\).join\\(','\\)||'\\(none\\)'\\)\\);\")",
+      "Bash(pnpm ds:generate -- --dry-run)"
     ]
   }
 }

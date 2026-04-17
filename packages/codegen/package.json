@@ -18,8 +18,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit",
-    "run": "tsx src/cli.ts"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@dp/diff-engine": "workspace:*",

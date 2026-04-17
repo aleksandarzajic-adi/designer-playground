@@ -1,30 +1,63 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-17T00:00:00.000Z",
+  "updatedAt": "2026-04-17T11:34:31.404Z",
   "components": {
     "Button": {
       "name": "Button",
-      "filePath": "packages/ui/src/components/Button.tsx",
+      "filePath": "packages/ui/src/components/Button/Button.tsx",
       "exportName": "Button",
       "description": "Primary action element",
       "variants": {
-        "variant": ["primary", "secondary", "ghost", "danger"],
-        "size": ["sm", "md", "lg"]
+        "Variant": [
+          "Primary",
+          "Neutral",
+          "Subtle"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Size": [
+          "Medium",
+          "Small"
+        ]
       },
       "props": [
-        { "name": "variant", "type": "ButtonVariant", "optional": true, "defaultValue": "primary" },
-        { "name": "size", "type": "ButtonSize", "optional": true, "defaultValue": "md" },
-        { "name": "fullWidth", "type": "boolean", "optional": true, "defaultValue": "false" },
-        { "name": "loading", "type": "boolean", "optional": true }
-      ]
+        {
+          "name": "Variant",
+          "type": "'Primary' | 'Neutral' | 'Subtle'",
+          "optional": true
+        },
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Medium' | 'Small'",
+          "optional": true
+        }
+      ],
+      "figmaNodeId": "4185:3778",
+      "figmaLastSyncedAt": "2026-04-17T10:14:13.643Z"
     },
     "Input": {
       "name": "Input",
       "filePath": "packages/ui/src/components/Input.tsx",
       "exportName": "Input",
       "props": [
-        { "name": "invalid", "type": "boolean", "optional": true },
-        { "name": "label", "type": "string", "optional": true }
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        }
       ]
     },
     "Card": {
@@ -32,18 +65,1033 @@
       "filePath": "packages/ui/src/components/Card.tsx",
       "exportName": "Card",
       "props": [
-        { "name": "$elevation", "type": "'none' | 'sm' | 'md' | 'lg'", "optional": true },
-        { "name": "$padding", "type": "SpaceKey", "optional": true }
-      ]
+        {
+          "name": "$elevation",
+          "type": "'none' | 'sm' | 'md' | 'lg'",
+          "optional": true
+        },
+        {
+          "name": "$padding",
+          "type": "SpaceKey",
+          "optional": true
+        }
+      ],
+      "figmaNodeId": "2142:11380",
+      "figmaLastSyncedAt": "2026-04-17T10:14:14.377Z",
+      "variants": {
+        "Asset Type": [
+          "Icon",
+          "Image"
+        ],
+        "Variant": [
+          "Stroke",
+          "Default"
+        ],
+        "Direction": [
+          "Horizontal",
+          "Vertical"
+        ]
+      }
     },
     "Badge": {
       "name": "Badge",
       "filePath": "packages/ui/src/components/Badge.tsx",
       "exportName": "Badge",
       "variants": {
-        "tone": ["neutral", "accent", "success", "warning", "danger"]
+        "tone": [
+          "neutral",
+          "accent",
+          "success",
+          "warning",
+          "danger"
+        ]
       },
-      "props": [{ "name": "$tone", "type": "BadgeTone", "optional": true }]
+      "props": [
+        {
+          "name": "$tone",
+          "type": "BadgeTone",
+          "optional": true
+        }
+      ]
+    },
+    "Avatar": {
+      "name": "Avatar",
+      "filePath": "packages/ui/src/components/Avatar/Avatar.tsx",
+      "exportName": "Avatar",
+      "props": [
+        {
+          "name": "Type",
+          "type": "'Initial' | 'Image'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Large' | 'Small' | 'Medium'",
+          "optional": true
+        },
+        {
+          "name": "Shape",
+          "type": "'Circle' | 'Square'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Type": [
+          "Initial",
+          "Image"
+        ],
+        "Size": [
+          "Large",
+          "Small",
+          "Medium"
+        ],
+        "Shape": [
+          "Circle",
+          "Square"
+        ]
+      },
+      "figmaNodeId": "9762:1103",
+      "figmaLastSyncedAt": "2026-04-17T11:16:37.564Z"
+    },
+    "PricingCard": {
+      "name": "PricingCard",
+      "filePath": "packages/ui/src/components/PricingCard/PricingCard.tsx",
+      "exportName": "PricingCard",
+      "props": [
+        {
+          "name": "Device",
+          "type": "'Desktop' | 'Mobile'",
+          "optional": true
+        },
+        {
+          "name": "Variant",
+          "type": "'Stroke' | 'Brand'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Device": [
+          "Desktop",
+          "Mobile"
+        ],
+        "Variant": [
+          "Stroke",
+          "Brand"
+        ]
+      },
+      "figmaNodeId": "1444:11846",
+      "figmaLastSyncedAt": "2026-04-17T11:33:34.799Z"
+    },
+    "InputField": {
+      "name": "InputField",
+      "filePath": "packages/ui/src/components/InputField/InputField.tsx",
+      "exportName": "InputField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Disabled' | 'Default' | 'Error'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Default' | 'Placeholder'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Disabled",
+          "Default",
+          "Error"
+        ],
+        "Value Type": [
+          "Default",
+          "Placeholder"
+        ]
+      },
+      "figmaNodeId": "2136:2263",
+      "figmaLastSyncedAt": "2026-04-17T11:34:31.404Z"
+    },
+    "Search": {
+      "name": "Search",
+      "filePath": "packages/ui/src/components/Search/Search.tsx",
+      "exportName": "Search",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Filled' | 'Placeholder'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Filled",
+          "Placeholder"
+        ]
+      },
+      "figmaNodeId": "2236:14989",
+      "figmaLastSyncedAt": "2026-04-17T11:20:08.855Z"
+    },
+    "NavigationPill": {
+      "name": "NavigationPill",
+      "filePath": "packages/ui/src/components/NavigationPill/NavigationPill.tsx",
+      "exportName": "NavigationPill",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Active' | 'Hover'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Active",
+          "Hover"
+        ]
+      },
+      "figmaNodeId": "7768:19970",
+      "figmaLastSyncedAt": "2026-04-17T11:22:19.750Z"
+    },
+    "Notification": {
+      "name": "Notification",
+      "filePath": "packages/ui/src/components/Notification/Notification.tsx",
+      "exportName": "Notification",
+      "props": [
+        {
+          "name": "Variant",
+          "type": "'Message' | 'Alert'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Variant": [
+          "Message",
+          "Alert"
+        ]
+      },
+      "figmaNodeId": "124:8256",
+      "figmaLastSyncedAt": "2026-04-17T11:22:20.577Z"
+    },
+    "PaginationPage": {
+      "name": "PaginationPage",
+      "filePath": "packages/ui/src/components/PaginationPage/PaginationPage.tsx",
+      "exportName": "PaginationPage",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Current' | 'Current Hover'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Current",
+          "Current Hover"
+        ]
+      },
+      "figmaNodeId": "9762:890",
+      "figmaLastSyncedAt": "2026-04-17T11:22:20.712Z"
+    },
+    "Tag": {
+      "name": "Tag",
+      "filePath": "packages/ui/src/components/Tag/Tag.tsx",
+      "exportName": "Tag",
+      "props": [
+        {
+          "name": "Scheme",
+          "type": "'Brand' | 'Neutral' | 'Positive' | 'Danger' | 'Warning'",
+          "optional": true
+        },
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover'",
+          "optional": true
+        },
+        {
+          "name": "Variant",
+          "type": "'Primary' | 'Secondary'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Scheme": [
+          "Brand",
+          "Neutral",
+          "Positive",
+          "Danger",
+          "Warning"
+        ],
+        "State": [
+          "Default",
+          "Hover"
+        ],
+        "Variant": [
+          "Primary",
+          "Secondary"
+        ]
+      },
+      "figmaNodeId": "56:8830",
+      "figmaLastSyncedAt": "2026-04-17T11:22:44.455Z"
+    },
+    "Tooltip": {
+      "name": "Tooltip",
+      "filePath": "packages/ui/src/components/Tooltip/Tooltip.tsx",
+      "exportName": "Tooltip",
+      "props": [
+        {
+          "name": "Placement",
+          "type": "'Top' | 'Left' | 'Right' | 'Bottom'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Placement": [
+          "Top",
+          "Left",
+          "Right",
+          "Bottom"
+        ]
+      },
+      "figmaNodeId": "315:32700",
+      "figmaLastSyncedAt": "2026-04-17T10:16:24.443Z"
+    },
+    "AccordionItem": {
+      "name": "AccordionItem",
+      "filePath": "packages/ui/src/components/AccordionItem/AccordionItem.tsx",
+      "exportName": "AccordionItem",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Closed' | 'Open'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Closed",
+          "Open"
+        ]
+      },
+      "figmaNodeId": "7753:4634",
+      "figmaLastSyncedAt": "2026-04-17T11:32:00.861Z"
+    },
+    "AiChatBox": {
+      "name": "AiChatBox",
+      "filePath": "packages/ui/src/components/AiChatBox/AiChatBox.tsx",
+      "exportName": "AiChatBox",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Active'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Active"
+        ]
+      },
+      "figmaNodeId": "4309:7636",
+      "figmaLastSyncedAt": "2026-04-17T11:32:31.192Z"
+    },
+    "AvatarGroup": {
+      "name": "AvatarGroup",
+      "filePath": "packages/ui/src/components/AvatarGroup/AvatarGroup.tsx",
+      "exportName": "AvatarGroup",
+      "props": [
+        {
+          "name": "Spacing",
+          "type": "'Overlap' | 'Spaced'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Spacing": [
+          "Overlap",
+          "Spaced"
+        ]
+      },
+      "figmaNodeId": "56:15608",
+      "figmaLastSyncedAt": "2026-04-17T11:32:55.181Z"
+    },
+    "IconButton": {
+      "name": "IconButton",
+      "filePath": "packages/ui/src/components/IconButton/IconButton.tsx",
+      "exportName": "IconButton",
+      "props": [
+        {
+          "name": "Variant",
+          "type": "'Primary' | 'Neutral' | 'Subtle'",
+          "optional": true
+        },
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Medium' | 'Small'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Variant": [
+          "Primary",
+          "Neutral",
+          "Subtle"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Size": [
+          "Medium",
+          "Small"
+        ]
+      },
+      "figmaNodeId": "11:11508",
+      "figmaLastSyncedAt": "2026-04-17T11:32:55.842Z"
+    },
+    "ButtonGroup": {
+      "name": "ButtonGroup",
+      "filePath": "packages/ui/src/components/ButtonGroup/ButtonGroup.tsx",
+      "exportName": "ButtonGroup",
+      "props": [
+        {
+          "name": "Align",
+          "type": "'Justify' | 'Start' | 'End' | 'Center' | 'Stack'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Align": [
+          "Justify",
+          "Start",
+          "End",
+          "Center",
+          "Stack"
+        ]
+      },
+      "figmaNodeId": "2072:9432",
+      "figmaLastSyncedAt": "2026-04-17T11:33:12.401Z"
+    },
+    "ButtonDanger": {
+      "name": "ButtonDanger",
+      "filePath": "packages/ui/src/components/ButtonDanger/ButtonDanger.tsx",
+      "exportName": "ButtonDanger",
+      "props": [
+        {
+          "name": "Variant",
+          "type": "'Primary' | 'Subtle'",
+          "optional": true
+        },
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Medium' | 'Small'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Variant": [
+          "Primary",
+          "Subtle"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Size": [
+          "Medium",
+          "Small"
+        ]
+      },
+      "figmaNodeId": "185:852",
+      "figmaLastSyncedAt": "2026-04-17T11:33:12.415Z"
+    },
+    "CalendarButton": {
+      "name": "CalendarButton",
+      "filePath": "packages/ui/src/components/CalendarButton/CalendarButton.tsx",
+      "exportName": "CalendarButton",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Active' | 'Disabled' | 'Range' | 'Range Disabled' | 'Hidden'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Active",
+          "Disabled",
+          "Range",
+          "Range Disabled",
+          "Hidden"
+        ]
+      },
+      "figmaNodeId": "4333:9359",
+      "figmaLastSyncedAt": "2026-04-17T11:33:34.160Z"
+    },
+    "DialogBody": {
+      "name": "DialogBody",
+      "filePath": "packages/ui/src/components/DialogBody/DialogBody.tsx",
+      "exportName": "DialogBody",
+      "props": [
+        {
+          "name": "Type",
+          "type": "'Card' | 'Sheet'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Type": [
+          "Card",
+          "Sheet"
+        ]
+      },
+      "figmaNodeId": "9762:696",
+      "figmaLastSyncedAt": "2026-04-17T11:33:58.934Z"
+    },
+    "CheckboxField": {
+      "name": "CheckboxField",
+      "filePath": "packages/ui/src/components/CheckboxField/CheckboxField.tsx",
+      "exportName": "CheckboxField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Unchecked' | 'Checked' | 'Indeterminate'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Unchecked",
+          "Checked",
+          "Indeterminate"
+        ]
+      },
+      "figmaNodeId": "9762:1441",
+      "figmaLastSyncedAt": "2026-04-17T11:34:31.365Z"
+    },
+    "DatePickerField": {
+      "name": "DatePickerField",
+      "filePath": "packages/ui/src/components/DatePickerField/DatePickerField.tsx",
+      "exportName": "DatePickerField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Error' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Default' | 'Placeholder'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Error",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Default",
+          "Placeholder"
+        ]
+      },
+      "figmaNodeId": "4300:6892",
+      "figmaLastSyncedAt": "2026-04-17T11:34:31.381Z"
+    },
+    "DateInputField": {
+      "name": "DateInputField",
+      "filePath": "packages/ui/src/components/DateInputField/DateInputField.tsx",
+      "exportName": "DateInputField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Error' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Default' | 'Placeholder'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Error",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Default",
+          "Placeholder"
+        ]
+      },
+      "figmaNodeId": "4302:7505",
+      "figmaLastSyncedAt": "2026-04-17T11:34:31.393Z"
+    },
+    "RadioField": {
+      "name": "RadioField",
+      "filePath": "packages/ui/src/components/RadioField/RadioField.tsx",
+      "exportName": "RadioField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Unchecked' | 'Checked'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Unchecked",
+          "Checked"
+        ]
+      },
+      "figmaNodeId": "9762:1412",
+      "figmaLastSyncedAt": "2026-04-17T11:20:08.056Z"
+    },
+    "SelectField": {
+      "name": "SelectField",
+      "filePath": "packages/ui/src/components/SelectField/SelectField.tsx",
+      "exportName": "SelectField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Error' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Default' | 'Placeholder'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Error",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Default",
+          "Placeholder"
+        ]
+      },
+      "figmaNodeId": "2136:2336",
+      "figmaLastSyncedAt": "2026-04-17T11:20:08.115Z"
+    },
+    "SliderField": {
+      "name": "SliderField",
+      "filePath": "packages/ui/src/components/SliderField/SliderField.tsx",
+      "exportName": "SliderField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Disabled'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "figmaNodeId": "589:17676",
+      "figmaLastSyncedAt": "2026-04-17T11:20:50.412Z"
+    },
+    "SwitchField": {
+      "name": "SwitchField",
+      "filePath": "packages/ui/src/components/SwitchField/SwitchField.tsx",
+      "exportName": "SwitchField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Disabled' | 'Default'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Unchecked' | 'Checked'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Disabled",
+          "Default"
+        ],
+        "Value Type": [
+          "Unchecked",
+          "Checked"
+        ]
+      },
+      "figmaNodeId": "9762:1902",
+      "figmaLastSyncedAt": "2026-04-17T11:21:23.975Z"
+    },
+    "TextareaField": {
+      "name": "TextareaField",
+      "filePath": "packages/ui/src/components/TextareaField/TextareaField.tsx",
+      "exportName": "TextareaField",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Error' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Value Type",
+          "type": "'Default' | 'Placeholder'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Error",
+          "Disabled"
+        ],
+        "Value Type": [
+          "Default",
+          "Placeholder"
+        ]
+      },
+      "figmaNodeId": "9762:3088",
+      "figmaLastSyncedAt": "2026-04-17T11:21:23.992Z"
+    },
+    "MenuItem": {
+      "name": "MenuItem",
+      "filePath": "packages/ui/src/components/MenuItem/MenuItem.tsx",
+      "exportName": "MenuItem",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ]
+      },
+      "figmaNodeId": "9762:743",
+      "figmaLastSyncedAt": "2026-04-17T11:21:48.136Z"
+    },
+    "NavigationButton": {
+      "name": "NavigationButton",
+      "filePath": "packages/ui/src/components/NavigationButton/NavigationButton.tsx",
+      "exportName": "NavigationButton",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Active'",
+          "optional": true
+        },
+        {
+          "name": "Direction",
+          "type": "'Column' | 'Row'",
+          "optional": true
+        },
+        {
+          "name": "Type",
+          "type": "'Small' | 'Medium'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Active"
+        ],
+        "Direction": [
+          "Column",
+          "Row"
+        ],
+        "Type": [
+          "Small",
+          "Medium"
+        ]
+      },
+      "figmaNodeId": "515:5459",
+      "figmaLastSyncedAt": "2026-04-17T11:21:48.156Z"
+    },
+    "NavigationButtonList": {
+      "name": "NavigationButtonList",
+      "filePath": "packages/ui/src/components/NavigationButtonList/NavigationButtonList.tsx",
+      "exportName": "NavigationButtonList",
+      "props": [
+        {
+          "name": "Direction",
+          "type": "'Row' | 'Column'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Direction": [
+          "Row",
+          "Column"
+        ]
+      },
+      "figmaNodeId": "524:503",
+      "figmaLastSyncedAt": "2026-04-17T11:22:03.786Z"
+    },
+    "NavigationPillList": {
+      "name": "NavigationPillList",
+      "filePath": "packages/ui/src/components/NavigationPillList/NavigationPillList.tsx",
+      "exportName": "NavigationPillList",
+      "props": [
+        {
+          "name": "Direction",
+          "type": "'Row' | 'Column'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Direction": [
+          "Row",
+          "Column"
+        ]
+      },
+      "figmaNodeId": "2194:14984",
+      "figmaLastSyncedAt": "2026-04-17T11:22:19.733Z"
+    },
+    "PaginationNext": {
+      "name": "PaginationNext",
+      "filePath": "packages/ui/src/components/PaginationNext/PaginationNext.tsx",
+      "exportName": "PaginationNext",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ]
+      },
+      "figmaNodeId": "9762:870",
+      "figmaLastSyncedAt": "2026-04-17T11:22:20.623Z"
+    },
+    "PaginationPrevious": {
+      "name": "PaginationPrevious",
+      "filePath": "packages/ui/src/components/PaginationPrevious/PaginationPrevious.tsx",
+      "exportName": "PaginationPrevious",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ]
+      },
+      "figmaNodeId": "9762:880",
+      "figmaLastSyncedAt": "2026-04-17T11:22:20.686Z"
+    },
+    "Tab": {
+      "name": "Tab",
+      "filePath": "packages/ui/src/components/Tab/Tab.tsx",
+      "exportName": "Tab",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover'",
+          "optional": true
+        },
+        {
+          "name": "Active",
+          "type": "'Off' | 'On'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Default",
+          "Hover"
+        ],
+        "Active": [
+          "Off",
+          "On"
+        ]
+      },
+      "figmaNodeId": "3729:12963",
+      "figmaLastSyncedAt": "2026-04-17T11:22:43.632Z"
+    },
+    "TagToggle": {
+      "name": "TagToggle",
+      "filePath": "packages/ui/src/components/TagToggle/TagToggle.tsx",
+      "exportName": "TagToggle",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Off' | 'On'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Off",
+          "On"
+        ]
+      },
+      "figmaNodeId": "157:10316",
+      "figmaLastSyncedAt": "2026-04-17T11:22:44.506Z"
+    },
+    "TextContentHeading": {
+      "name": "TextContentHeading",
+      "filePath": "packages/ui/src/components/TextContentHeading/TextContentHeading.tsx",
+      "exportName": "TextContentHeading",
+      "props": [
+        {
+          "name": "Align",
+          "type": "'Start' | 'Center'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Align": [
+          "Start",
+          "Center"
+        ]
+      },
+      "figmaNodeId": "2153:7834",
+      "figmaLastSyncedAt": "2026-04-17T11:23:06.026Z"
+    },
+    "TextContentTitle": {
+      "name": "TextContentTitle",
+      "filePath": "packages/ui/src/components/TextContentTitle/TextContentTitle.tsx",
+      "exportName": "TextContentTitle",
+      "props": [
+        {
+          "name": "Align",
+          "type": "'Start' | 'Center'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Align": [
+          "Start",
+          "Center"
+        ]
+      },
+      "figmaNodeId": "2153:7838",
+      "figmaLastSyncedAt": "2026-04-17T11:23:25.868Z"
+    },
+    "TextLinkList": {
+      "name": "TextLinkList",
+      "filePath": "packages/ui/src/components/TextLinkList/TextLinkList.tsx",
+      "exportName": "TextLinkList",
+      "props": [
+        {
+          "name": "Density",
+          "type": "'Default' | 'Tight'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Density": [
+          "Default",
+          "Tight"
+        ]
+      },
+      "figmaNodeId": "322:9321",
+      "figmaLastSyncedAt": "2026-04-17T11:24:18.457Z"
+    },
+    "TextList": {
+      "name": "TextList",
+      "filePath": "packages/ui/src/components/TextList/TextList.tsx",
+      "exportName": "TextList",
+      "props": [
+        {
+          "name": "Density",
+          "type": "'Default' | 'Tight'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Density": [
+          "Default",
+          "Tight"
+        ]
+      },
+      "figmaNodeId": "480:6149",
+      "figmaLastSyncedAt": "2026-04-17T11:24:38.806Z"
+    },
+    "TextPrice": {
+      "name": "TextPrice",
+      "filePath": "packages/ui/src/components/TextPrice/TextPrice.tsx",
+      "exportName": "TextPrice",
+      "props": [
+        {
+          "name": "Size",
+          "type": "'Large' | 'Small'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Size": [
+          "Large",
+          "Small"
+        ]
+      },
+      "figmaNodeId": "1443:10386",
+      "figmaLastSyncedAt": "2026-04-17T11:25:03.407Z"
     }
   }
 }

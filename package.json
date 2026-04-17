@@ -11,11 +11,10 @@
     "clean": "pnpm -r exec rm -rf dist .next .turbo node_modules/.cache",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
-    "extract": "node --env-file=.env --import tsx packages/figma-extractor/src/cli.ts",
-    "codegen": "node --env-file=.env --import tsx packages/codegen/src/cli.ts",
     "ds:pull": "node --env-file=.env --import tsx packages/figma-extractor/src/cli.ts",
+    "ds:tokens": "node --env-file=.env --import tsx packages/figma-extractor/src/tokensCli.ts",
     "ds:generate": "node --env-file=.env --import tsx packages/codegen/src/cli.ts",
-    "ds:sync": "pnpm ds:pull && pnpm ds:generate",
+    "ds:sync": "pnpm ds:pull && pnpm ds:tokens && pnpm ds:generate",
     "ds:verify": "pnpm typecheck && pnpm build"
   },
   "devDependencies": {

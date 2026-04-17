@@ -18,8 +18,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit",
-    "extract": "tsx src/cli.ts"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@dp/registry": "workspace:*"
