@@ -22,7 +22,6 @@
     "run": "tsx src/cli.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
     "@dp/diff-engine": "workspace:*",
     "@dp/figma-extractor": "workspace:*",
     "@dp/registry": "workspace:*"

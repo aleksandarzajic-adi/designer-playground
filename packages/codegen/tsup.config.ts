@@ -5,6 +5,6 @@ export default defineConfig({
   format: ['esm'],
   dts: true,
   clean: true,
-  external: ['@anthropic-ai/sdk', 'ts-morph'],
+  external: ['ts-morph'],
   banner: { js: '#!/usr/bin/env node' },
 });

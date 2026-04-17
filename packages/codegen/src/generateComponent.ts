@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { updateComponent, type UpdateResult } from '@dp/diff-engine';
 import type { ExtractedComponent } from '@dp/figma-extractor';
@@ -9,24 +9,30 @@ import {
   type Registry,
   type RegistryComponent,
 } from '@dp/registry';
-import { ClaudeClient } from './claude';
-import { SYSTEM_PROMPT, componentPrompt, patchPrompt, type PatchResponse } from './prompts';
+import { ClaudeCodeClient } from './claudeCode';
+import { SYSTEM_PROMPT, componentPrompt } from './prompts';
+import { specFromSnapshot } from './specFromSnapshot';
 
 export interface GenerateContext {
   uiPackageRoot: string;
   registryPath: string;
   dryRun?: boolean;
-  claude?: ClaudeClient;
+  claude?: ClaudeCodeClient;
 }
 
 export type GenerateOutcome =
   | { kind: 'created'; componentName: string; filePath: string }
-  | { kind: 'updated'; componentName: string; filePath: string; result: UpdateResult; rationale: string }
+  | {
+      kind: 'updated';
+      componentName: string;
+      filePath: string;
+      result: UpdateResult;
+    }
   | { kind: 'unchanged'; componentName: string; filePath: string }
   | { kind: 'skipped'; componentName: string; reason: string };
 
-function claudeFor(ctx: GenerateContext): ClaudeClient {
-  return ctx.claude ?? new ClaudeClient();
+function claudeFor(ctx: GenerateContext): ClaudeCodeClient {
+  return ctx.claude ?? new ClaudeCodeClient();
 }
 
 export async function generateComponent(
@@ -38,14 +44,12 @@ export async function generateComponent(
   }
 
   const registry: Registry = loadRegistry(ctx.registryPath);
-  const registryEntry = registry.components[snapshot.name];
-  const client = claudeFor(ctx);
+  const entry = registry.components[snapshot.name];
 
-  if (registryEntry && existsSync(resolve(process.cwd(), registryEntry.filePath))) {
-    return updateExisting(snapshot, registryEntry, registry, ctx, client);
+  if (entry && existsSync(resolve(process.cwd(), entry.filePath))) {
+    return updateExisting(snapshot, entry, registry, ctx);
   }
-
-  return createNew(snapshot, registry, ctx, client);
+  return createNew(snapshot, registry, ctx);
 }
 
 async function updateExisting(
@@ -53,34 +57,23 @@ async function updateExisting(
   entry: RegistryComponent,
   registry: Registry,
   ctx: GenerateContext,
-  client: ClaudeClient,
 ): Promise<GenerateOutcome> {
   const filePath = resolve(process.cwd(), entry.filePath);
-  const source = readFileSync(filePath, 'utf8');
+  const spec = specFromSnapshot(snapshot);
 
-  const response = await client.completeJson<PatchResponse>(
-    SYSTEM_PROMPT,
-    patchPrompt({ componentName: entry.name, existingSource: source, snapshot }),
-  );
-
-  const changes = response.changes ?? {};
   const hasWork =
-    Object.keys(changes.variants ?? {}).length > 0 ||
-    (changes.states?.length ?? 0) > 0 ||
-    Object.keys(changes.tokens ?? {}).length > 0;
+    Object.keys(spec.variants ?? {}).length > 0 ||
+    (spec.states?.length ?? 0) > 0 ||
+    Object.keys(spec.tokens ?? {}).length > 0;
 
-  if (!hasWork) {
-    return { kind: 'unchanged', componentName: entry.name, filePath };
-  }
+  if (!hasWork) return { kind: 'unchanged', componentName: entry.name, filePath };
 
-  const result = await updateComponent(filePath, changes, {
+  const result = await updateComponent(filePath, spec, {
     componentName: entry.name,
     dryRun: ctx.dryRun,
   });
 
-  if (!result.changed) {
-    return { kind: 'unchanged', componentName: entry.name, filePath };
-  }
+  if (!result.changed) return { kind: 'unchanged', componentName: entry.name, filePath };
 
   upsertComponent(registry, {
     ...entry,
@@ -88,23 +81,20 @@ async function updateExisting(
     figmaLastSyncedAt: new Date().toISOString(),
     variants: {
       ...(entry.variants ?? {}),
-      ...Object.fromEntries(
-        Object.entries(snapshot.variants.propertyDefinitions).map(([k, v]) => [k, v]),
-      ),
+      ...snapshot.variants.propertyDefinitions,
     },
   });
-
   if (!ctx.dryRun) saveRegistry(registry, ctx.registryPath);
 
-  return { kind: 'updated', componentName: entry.name, filePath, result, rationale: response.rationale };
+  return { kind: 'updated', componentName: entry.name, filePath, result };
 }
 
 async function createNew(
   snapshot: ExtractedComponent,
   registry: Registry,
   ctx: GenerateContext,
-  client: ClaudeClient,
 ): Promise<GenerateOutcome> {
+  const client = claudeFor(ctx);
   const generated = await client.completeJson<{
     type: 'create';
     componentName: string;
@@ -125,10 +115,9 @@ async function createNew(
     );
   }
 
-  const relPath = `packages/ui/src/components/${generated.componentName}/${generated.fileName}`;
   upsertComponent(registry, {
     name: generated.componentName,
-    filePath: relPath,
+    filePath: `packages/ui/src/components/${generated.componentName}/${generated.fileName}`,
     exportName: generated.componentName,
     props: Object.entries(snapshot.variants.propertyDefinitions).map(([name, values]) => ({
       name,
@@ -139,7 +128,6 @@ async function createNew(
     figmaNodeId: snapshot.figmaId,
     figmaLastSyncedAt: new Date().toISOString(),
   });
-
   if (!ctx.dryRun) saveRegistry(registry, ctx.registryPath);
 
   return { kind: 'created', componentName: generated.componentName, filePath: target };
