@@ -4,7 +4,7 @@ import { ButtonDanger } from '@dp/ui';
 const meta: Meta<typeof ButtonDanger> = {
   title: 'Components/ButtonDanger',
   component: ButtonDanger,
-  args: { children: 'ButtonDanger' },
+  args: { children: 'Delete' },
   argTypes: {
     variant: { control: 'select', options: ['primary', 'subtle'] },
     size: { control: 'select', options: ['medium', 'small'] },

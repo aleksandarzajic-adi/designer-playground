@@ -19,14 +19,14 @@ const sizeStyles = (t: DefaultTheme): Record<ButtonDangerSize, ReturnType<typeof
 
 const variantStyles = (t: DefaultTheme): Record<ButtonDangerVariant, ReturnType<typeof css>> => ({
   primary: css`
-    background: ${t.colors.accent};
+    background: ${t.colors.danger};
     color: ${t.colors.fgOnAccent};
-    border: 1px solid ${t.colors.accent};
-    &:hover:not(:disabled) { background: ${t.colors.accentHover}; border-color: ${t.colors.accentHover}; }
+    border: 1px solid ${t.colors.danger};
+    &:hover:not(:disabled) { filter: brightness(0.92); }
   `,
   subtle: css`
     background: transparent;
-    color: ${t.colors.fgPrimary};
+    color: ${t.colors.danger};
     border: 1px solid transparent;
     &:hover:not(:disabled) { background: ${t.colors.bgMuted}; }
   `,
@@ -45,6 +45,7 @@ const Root = styled.button<{ $variant: ButtonDangerVariant; $size: ButtonDangerS
   transition:
     background ${(p) => p.theme.durations.fast} ease,
     border-color ${(p) => p.theme.durations.fast} ease,
+    filter ${(p) => p.theme.durations.fast} ease,
     transform ${(p) => p.theme.durations.fast} ease;
 
   ${(p) => sizeStyles(p.theme)[p.$size]}
@@ -52,7 +53,7 @@ const Root = styled.button<{ $variant: ButtonDangerVariant; $size: ButtonDangerS
   ${(p) => p.$fullWidth && 'width: 100%;'}
 
   &:disabled { opacity: 0.5; cursor: not-allowed; }
-  &:focus-visible { outline: 2px solid ${(p) => p.theme.colors.accent}; outline-offset: 2px; }
+  &:focus-visible { outline: 2px solid ${(p) => p.theme.colors.danger}; outline-offset: 2px; }
   &:active:not(:disabled) { transform: translateY(1px); }
 `;
 

@@ -10,7 +10,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-    disabled?: boolean;
 }
 
 const sizeStyles = (t: DefaultTheme): Record<ButtonSize, ReturnType<typeof css>> => ({

@@ -14,6 +14,7 @@
     "ds:pull": "node --env-file=.env --import tsx packages/figma-extractor/src/cli.ts",
     "ds:tokens": "node --env-file=.env --import tsx packages/figma-extractor/src/tokensCli.ts",
     "ds:generate": "node --env-file=.env --import tsx packages/codegen/src/cli.ts",
+    "ds:component": "node --env-file=.env --import tsx packages/codegen/src/singleCli.ts",
     "ds:sync": "pnpm ds:pull && pnpm ds:tokens && pnpm ds:generate",
     "ds:verify": "pnpm typecheck && pnpm build"
   },

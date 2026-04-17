@@ -4,7 +4,7 @@ import { AccordionItem } from '@dp/ui';
 const meta: Meta<typeof AccordionItem> = {
   title: 'Components/AccordionItem',
   component: AccordionItem,
-  args: { children: 'AccordionItem' },
+  args: { title: 'Section title', defaultOpen: true, children: 'Body content' },
 };
 
 export default meta;

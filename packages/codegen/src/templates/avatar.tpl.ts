@@ -15,15 +15,19 @@ export const avatarTemplate: TemplateFn = (spec: ArchetypeSpec) => {
   const name = spec.componentName;
   const sizes = spec.variants.size ?? ['medium'];
   const shapes = spec.variants.shape ?? ['circle', 'square'];
+  const types = spec.variants.type ?? ['initial', 'image'];
 
   const sizeCase = sizes
-    .map((s) => `  ${s}: css\`width: ${SIZE_PX[s.toLowerCase()] ?? 36}px; height: ${SIZE_PX[s.toLowerCase()] ?? 36}px;\`,`)
+    .map(
+      (s) =>
+        `  ${s}: css\`width: ${SIZE_PX[s.toLowerCase()] ?? 36}px; height: ${SIZE_PX[s.toLowerCase()] ?? 36}px; font-size: ${Math.round((SIZE_PX[s.toLowerCase()] ?? 36) * 0.4)}px;\`,`,
+    )
     .join('\n');
 
   const shapeCase = shapes
     .map(
       (s) =>
-        `  ${s}: css\`border-radius: \${s === 'circle' ? 'var(--dp-radius-pill)' : 'var(--dp-radius-md)'};\`,`,
+        `  ${s}: css\`border-radius: ${s.toLowerCase() === 'circle' ? '9999px' : '8px'};\`,`,
     )
     .join('\n');
 
@@ -32,6 +36,7 @@ import styled, { css } from 'styled-components';
 
 export type ${name}Size = ${unionLiteral(sizes)};
 export type ${name}Shape = ${unionLiteral(shapes)};
+export type ${name}Type = ${unionLiteral(types)};
 
 export interface ${name}Props extends React.HTMLAttributes<HTMLSpanElement> {
   src?: string;
@@ -39,6 +44,7 @@ export interface ${name}Props extends React.HTMLAttributes<HTMLSpanElement> {
   initials?: string;
   size?: ${name}Size;
   shape?: ${name}Shape;
+  type?: ${name}Type;
 }
 
 const sizeStyles: Record<${name}Size, ReturnType<typeof css>> = {
@@ -46,12 +52,7 @@ ${sizeCase}
 };
 
 const shapeStyles: Record<${name}Shape, ReturnType<typeof css>> = {
-${shapes
-  .map(
-    (s) =>
-      `  ${s}: css\`border-radius: ${s.toLowerCase() === 'circle' ? '9999px' : '8px'};\`,`,
-  )
-  .join('\n')}
+${shapeCase}
 };
 
 const Root = styled.span<{ $size: ${name}Size; $shape: ${name}Shape }>\`
@@ -65,15 +66,30 @@ const Root = styled.span<{ $size: ${name}Size; $shape: ${name}Shape }>\`
   \${(p) => sizeStyles[p.$size]}
   \${(p) => shapeStyles[p.$shape]}
 
-  img { width: 100%; height: 100%; object-fit: cover; }
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
 \`;
 
 export const ${name} = React.forwardRef<HTMLSpanElement, ${name}Props>(
-  ({ src, alt, initials, size = '${defaultOf(sizes)}', shape = '${defaultOf(shapes)}', ...rest }, ref) => (
-    <Root ref={ref} $size={size} $shape={shape} {...rest}>
-      {src ? <img src={src} alt={alt ?? ''} /> : initials}
-    </Root>
-  ),
+  (
+    {
+      src,
+      alt,
+      initials,
+      size = '${defaultOf(sizes)}',
+      shape = '${defaultOf(shapes)}',
+      type,
+      ...rest
+    },
+    ref,
+  ) => {
+    const resolvedType: ${name}Type = type ?? (src ? 'image' : 'initial');
+    const showImage = resolvedType === 'image' && src;
+    return (
+      <Root ref={ref} $size={size} $shape={shape} {...rest}>
+        {showImage ? <img src={src} alt={alt ?? ''} /> : (initials ?? '?')}
+      </Root>
+    );
+  },
 );
 ${name}.displayName = '${name}';
 `;

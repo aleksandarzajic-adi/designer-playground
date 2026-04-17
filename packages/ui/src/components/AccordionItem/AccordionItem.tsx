@@ -5,21 +5,20 @@ export interface AccordionItemProps extends Omit<React.HTMLAttributes<HTMLDivEle
   title: React.ReactNode;
   open?: boolean;
   defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
+  onOpenChange?: (open: boolean) => void;
   children?: React.ReactNode;
 }
 
 const Root = styled.div<{ $open: boolean; $disabled: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: ${(p) => p.theme.spacing[2]};
-  padding: ${(p) => p.theme.spacing[4]};
   border: 1px solid ${(p) => p.theme.colors.border};
   border-radius: ${(p) => p.theme.radii.md};
-  background: ${(p) => (p.$open ? p.theme.colors.bgPrimary : p.theme.colors.bgMuted)};
-  transition: background ${(p) => p.theme.durations.fast} ease;
+  background: ${(p) => p.theme.colors.bgSurface};
+  overflow: hidden;
   opacity: ${(p) => (p.$disabled ? 0.5 : 1)};
+  transition: background ${(p) => p.theme.durations.fast} ease;
 `;
 
 const Header = styled.button<{ $disabled: boolean }>`
@@ -28,7 +27,7 @@ const Header = styled.button<{ $disabled: boolean }>`
   align-items: center;
   gap: ${(p) => p.theme.spacing[2]};
   width: 100%;
-  padding: 0;
+  padding: ${(p) => p.theme.spacing[3]} ${(p) => p.theme.spacing[4]};
   margin: 0;
   background: transparent;
   border: none;
@@ -42,13 +41,11 @@ const Header = styled.button<{ $disabled: boolean }>`
 
   &:focus-visible {
     outline: 2px solid ${(p) => p.theme.colors.accent};
-    outline-offset: 2px;
+    outline-offset: -2px;
   }
 `;
 
-const TitleText = styled.span`
-  flex: 1;
-`;
+const TitleText = styled.span`flex: 1;`;
 
 const Chevron = styled.span<{ $open: boolean }>`
   display: inline-flex;
@@ -59,10 +56,8 @@ const Chevron = styled.span<{ $open: boolean }>`
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  padding: ${(p) => p.theme.spacing[3]} ${(p) => p.theme.spacing[4]};
+  border-top: 1px solid ${(p) => p.theme.colors.border};
   font-size: ${(p) => p.theme.typography.fontSize.md};
   font-weight: ${(p) => p.theme.typography.fontWeight.regular};
   line-height: ${(p) => p.theme.typography.lineHeight.normal};
@@ -77,37 +72,23 @@ const ChevronIcon: React.FC = () => (
 
 export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
   (
-    {
-      title,
-      open,
-      defaultOpen = false,
-      onOpenChange,
-      disabled = false,
-      children,
-      ...rest
-    },
+    { title, open, defaultOpen = false, disabled = false, onOpenChange, children, ...rest },
     ref,
   ) => {
-    const isControlled = open !== undefined;
+    const controlled = open !== undefined;
     const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
-    const isOpen = isControlled ? open : internalOpen;
+    const isOpen = controlled ? open : internalOpen;
 
     const toggle = () => {
       if (disabled) return;
       const next = !isOpen;
-      if (!isControlled) setInternalOpen(next);
+      if (!controlled) setInternalOpen(next);
       onOpenChange?.(next);
     };
 
     return (
       <Root ref={ref} $open={isOpen} $disabled={disabled} {...rest}>
-        <Header
-          type="button"
-          $disabled={disabled}
-          disabled={disabled}
-          aria-expanded={isOpen}
-          onClick={toggle}
-        >
+        <Header type="button" $disabled={disabled} disabled={disabled} aria-expanded={isOpen} onClick={toggle}>
           <TitleText>{title}</TitleText>
           <Chevron $open={isOpen}>
             <ChevronIcon />

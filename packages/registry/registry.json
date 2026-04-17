@@ -1,48 +1,7 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-17T11:34:31.404Z",
+  "updatedAt": "2026-04-17T13:11:22.039Z",
   "components": {
-    "Button": {
-      "name": "Button",
-      "filePath": "packages/ui/src/components/Button/Button.tsx",
-      "exportName": "Button",
-      "description": "Primary action element",
-      "variants": {
-        "Variant": [
-          "Primary",
-          "Neutral",
-          "Subtle"
-        ],
-        "State": [
-          "Default",
-          "Hover",
-          "Disabled"
-        ],
-        "Size": [
-          "Medium",
-          "Small"
-        ]
-      },
-      "props": [
-        {
-          "name": "Variant",
-          "type": "'Primary' | 'Neutral' | 'Subtle'",
-          "optional": true
-        },
-        {
-          "name": "State",
-          "type": "'Default' | 'Hover' | 'Disabled'",
-          "optional": true
-        },
-        {
-          "name": "Size",
-          "type": "'Medium' | 'Small'",
-          "optional": true
-        }
-      ],
-      "figmaNodeId": "4185:3778",
-      "figmaLastSyncedAt": "2026-04-17T10:14:13.643Z"
-    },
     "Input": {
       "name": "Input",
       "filePath": "packages/ui/src/components/Input.tsx",
@@ -113,45 +72,6 @@
           "optional": true
         }
       ]
-    },
-    "Avatar": {
-      "name": "Avatar",
-      "filePath": "packages/ui/src/components/Avatar/Avatar.tsx",
-      "exportName": "Avatar",
-      "props": [
-        {
-          "name": "Type",
-          "type": "'Initial' | 'Image'",
-          "optional": true
-        },
-        {
-          "name": "Size",
-          "type": "'Large' | 'Small' | 'Medium'",
-          "optional": true
-        },
-        {
-          "name": "Shape",
-          "type": "'Circle' | 'Square'",
-          "optional": true
-        }
-      ],
-      "variants": {
-        "Type": [
-          "Initial",
-          "Image"
-        ],
-        "Size": [
-          "Large",
-          "Small",
-          "Medium"
-        ],
-        "Shape": [
-          "Circle",
-          "Square"
-        ]
-      },
-      "figmaNodeId": "9762:1103",
-      "figmaLastSyncedAt": "2026-04-17T11:16:37.564Z"
     },
     "PricingCard": {
       "name": "PricingCard",
@@ -367,26 +287,6 @@
       "figmaNodeId": "315:32700",
       "figmaLastSyncedAt": "2026-04-17T10:16:24.443Z"
     },
-    "AccordionItem": {
-      "name": "AccordionItem",
-      "filePath": "packages/ui/src/components/AccordionItem/AccordionItem.tsx",
-      "exportName": "AccordionItem",
-      "props": [
-        {
-          "name": "State",
-          "type": "'Closed' | 'Open'",
-          "optional": true
-        }
-      ],
-      "variants": {
-        "State": [
-          "Closed",
-          "Open"
-        ]
-      },
-      "figmaNodeId": "7753:4634",
-      "figmaLastSyncedAt": "2026-04-17T11:32:00.861Z"
-    },
     "AiChatBox": {
       "name": "AiChatBox",
       "filePath": "packages/ui/src/components/AiChatBox/AiChatBox.tsx",
@@ -489,45 +389,6 @@
       },
       "figmaNodeId": "2072:9432",
       "figmaLastSyncedAt": "2026-04-17T11:33:12.401Z"
-    },
-    "ButtonDanger": {
-      "name": "ButtonDanger",
-      "filePath": "packages/ui/src/components/ButtonDanger/ButtonDanger.tsx",
-      "exportName": "ButtonDanger",
-      "props": [
-        {
-          "name": "Variant",
-          "type": "'Primary' | 'Subtle'",
-          "optional": true
-        },
-        {
-          "name": "State",
-          "type": "'Default' | 'Hover' | 'Disabled'",
-          "optional": true
-        },
-        {
-          "name": "Size",
-          "type": "'Medium' | 'Small'",
-          "optional": true
-        }
-      ],
-      "variants": {
-        "Variant": [
-          "Primary",
-          "Subtle"
-        ],
-        "State": [
-          "Default",
-          "Hover",
-          "Disabled"
-        ],
-        "Size": [
-          "Medium",
-          "Small"
-        ]
-      },
-      "figmaNodeId": "185:852",
-      "figmaLastSyncedAt": "2026-04-17T11:33:12.415Z"
     },
     "CalendarButton": {
       "name": "CalendarButton",
@@ -1092,6 +953,144 @@
       },
       "figmaNodeId": "1443:10386",
       "figmaLastSyncedAt": "2026-04-17T11:25:03.407Z"
+    },
+    "Button": {
+      "name": "Button",
+      "filePath": "packages/ui/src/components/Button/Button.tsx",
+      "exportName": "Button",
+      "props": [
+        {
+          "name": "Variant",
+          "type": "'Primary' | 'Neutral' | 'Subtle'",
+          "optional": true
+        },
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Medium' | 'Small'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Variant": [
+          "Primary",
+          "Neutral",
+          "Subtle"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Size": [
+          "Medium",
+          "Small"
+        ]
+      },
+      "figmaNodeId": "4185:3778",
+      "figmaLastSyncedAt": "2026-04-17T13:11:14.917Z"
+    },
+    "ButtonDanger": {
+      "name": "ButtonDanger",
+      "filePath": "packages/ui/src/components/ButtonDanger/ButtonDanger.tsx",
+      "exportName": "ButtonDanger",
+      "props": [
+        {
+          "name": "Variant",
+          "type": "'Primary' | 'Subtle'",
+          "optional": true
+        },
+        {
+          "name": "State",
+          "type": "'Default' | 'Hover' | 'Disabled'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Medium' | 'Small'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Variant": [
+          "Primary",
+          "Subtle"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Size": [
+          "Medium",
+          "Small"
+        ]
+      },
+      "figmaNodeId": "185:852",
+      "figmaLastSyncedAt": "2026-04-17T13:11:17.243Z"
+    },
+    "Avatar": {
+      "name": "Avatar",
+      "filePath": "packages/ui/src/components/Avatar/Avatar.tsx",
+      "exportName": "Avatar",
+      "props": [
+        {
+          "name": "Type",
+          "type": "'Initial' | 'Image'",
+          "optional": true
+        },
+        {
+          "name": "Size",
+          "type": "'Large' | 'Small' | 'Medium'",
+          "optional": true
+        },
+        {
+          "name": "Shape",
+          "type": "'Circle' | 'Square'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "Type": [
+          "Initial",
+          "Image"
+        ],
+        "Size": [
+          "Large",
+          "Small",
+          "Medium"
+        ],
+        "Shape": [
+          "Circle",
+          "Square"
+        ]
+      },
+      "figmaNodeId": "9762:1103",
+      "figmaLastSyncedAt": "2026-04-17T13:11:19.602Z"
+    },
+    "AccordionItem": {
+      "name": "AccordionItem",
+      "filePath": "packages/ui/src/components/AccordionItem/AccordionItem.tsx",
+      "exportName": "AccordionItem",
+      "props": [
+        {
+          "name": "State",
+          "type": "'Closed' | 'Open'",
+          "optional": true
+        }
+      ],
+      "variants": {
+        "State": [
+          "Closed",
+          "Open"
+        ]
+      },
+      "figmaNodeId": "7753:4634",
+      "figmaLastSyncedAt": "2026-04-17T13:11:22.038Z"
     }
   }
 }

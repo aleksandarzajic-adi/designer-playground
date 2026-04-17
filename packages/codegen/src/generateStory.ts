@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import type { RegistryComponent } from '@dp/registry';
+import { resolveArchetypeByComponentName } from './templates';
 
 export interface StoryContext {
   storybookRoot: string;
@@ -36,7 +37,20 @@ const camelValue = (v: string) =>
 
 const capIdent = (s: string) => s.replace(/[^a-zA-Z0-9]/g, '').replace(/^(.)/, (_, c) => c.toUpperCase());
 
+function formatArgValue(v: unknown): string {
+  if (typeof v === 'string') return `'${v.replace(/'/g, "\\'")}'`;
+  if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+  if (v === null) return 'null';
+  return JSON.stringify(v);
+}
+
 function renderStory(component: RegistryComponent): string {
+  const archetype = resolveArchetypeByComponentName(component.name);
+  const defaultArgs = archetype?.storyDefault?.args ?? { children: component.name };
+  const defaultArgsLine = Object.entries(defaultArgs)
+    .map(([k, v]) => `${k}: ${formatArgValue(v)}`)
+    .join(', ');
+
   const normalized: Record<string, string[]> = {};
   const states = new Set<string>();
 
@@ -93,7 +107,7 @@ import { ${component.exportName} } from '@dp/ui';
 const meta: Meta<typeof ${component.exportName}> = {
   title: 'Components/${component.name}',
   component: ${component.exportName},
-  args: { children: '${component.name}' },
+  args: { ${defaultArgsLine} },
 ${allControls ? `  argTypes: {\n${allControls}\n  },\n` : ''}};
 
 export default meta;

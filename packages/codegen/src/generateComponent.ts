@@ -17,6 +17,7 @@ import { renderFromArchetype } from './templates';
 export interface GenerateContext {
   uiPackageRoot: string;
   registryPath: string;
+  figmaFileKey?: string;
   dryRun?: boolean;
   claude?: ClaudeCodeClient;
 }
@@ -106,7 +107,7 @@ async function createNew(
     componentName: string;
     fileName: string;
     source: string;
-  }>(SYSTEM_PROMPT, componentPrompt(snapshot));
+  }>(SYSTEM_PROMPT, componentPrompt({ snapshot, figmaFileKey: ctx.figmaFileKey }));
 
   return writeComponent(snapshot, generated, registry, ctx, 'claude');
 }

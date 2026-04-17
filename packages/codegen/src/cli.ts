@@ -47,10 +47,20 @@ async function main() {
   const uiPackageRoot = resolve(process.cwd(), 'packages/ui');
   const registryPath = resolve(process.cwd(), 'packages/registry/registry.json');
   const storybookRoot = resolve(process.cwd(), 'apps/storybook');
+  const figmaFileKeyRaw = process.env.FIGMA_FILE_KEY;
+  const figmaFileKey = figmaFileKeyRaw
+    ? figmaFileKeyRaw.match(/figma\.com\/(?:design|file|board|make)\/([A-Za-z0-9]+)/)?.[1] ??
+      figmaFileKeyRaw.trim()
+    : undefined;
 
   const outcomes: unknown[] = [];
   for (const snapshot of queue) {
-    const outcome = await generateComponent(snapshot, { uiPackageRoot, registryPath, dryRun });
+    const outcome = await generateComponent(snapshot, {
+      uiPackageRoot,
+      registryPath,
+      figmaFileKey,
+      dryRun,
+    });
     outcomes.push(outcome);
     console.log(`[${outcome.kind}] ${outcome.componentName}`);
   }
