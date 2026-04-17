@@ -13,6 +13,8 @@ import { accordionItemTemplate } from './accordionItem.tpl';
 export interface StoryDefault {
   args: Record<string, unknown>;
   render?: string;
+  /** Optional allow-list of variant keys to expose in Story argTypes + stories. */
+  variantKeys?: string[];
 }
 
 export interface ArchetypeRule {
@@ -27,31 +29,31 @@ export const archetypes: ArchetypeRule[] = [
     match: /^button\s+danger$/i,
     archetype: 'button-danger',
     template: buttonDangerTemplate,
-    storyDefault: { args: { children: 'Delete' } },
+    storyDefault: { args: { children: 'Delete' }, variantKeys: ['variant', 'size'] },
   },
   {
     match: /^icon\s+button$/i,
     archetype: 'button',
     template: buttonTemplate,
-    storyDefault: { args: { children: '★' } },
+    storyDefault: { args: { children: '★' }, variantKeys: ['variant', 'size'] },
   },
   {
     match: /^button$/i,
     archetype: 'button',
     template: buttonTemplate,
-    storyDefault: { args: { children: 'Button' } },
+    storyDefault: { args: { children: 'Button' }, variantKeys: ['variant', 'size'] },
   },
   {
     match: /^pagination\s+(next|previous|page)$/i,
     archetype: 'button',
     template: buttonTemplate,
-    storyDefault: { args: { children: '1' } },
+    storyDefault: { args: { children: '1' }, variantKeys: ['variant', 'size'] },
   },
   {
     match: /^navigation\s+button$/i,
     archetype: 'button',
     template: buttonTemplate,
-    storyDefault: { args: { children: 'Nav' } },
+    storyDefault: { args: { children: 'Nav' }, variantKeys: ['variant', 'size'] },
   },
 
   {
@@ -77,27 +79,27 @@ export const archetypes: ArchetypeRule[] = [
     match: /^(pricing\s+)?card$/i,
     archetype: 'card',
     template: cardTemplate,
-    storyDefault: { args: { children: 'Card content' } },
+    storyDefault: { args: { children: 'Card content' }, variantKeys: [] },
   },
 
   {
     match: /^(tag|notification|tag\s+toggle|badge)$/i,
     archetype: 'badge',
     template: badgeTemplate,
-    storyDefault: { args: { children: 'Label' } },
+    storyDefault: { args: { children: 'Label' }, variantKeys: ['tone'] },
   },
   {
     match: /^navigation\s+pill$/i,
     archetype: 'badge',
     template: badgeTemplate,
-    storyDefault: { args: { children: 'Pill' } },
+    storyDefault: { args: { children: 'Pill' }, variantKeys: ['tone'] },
   },
 
   {
     match: /^avatar$/i,
     archetype: 'avatar',
     template: avatarTemplate,
-    storyDefault: { args: { initials: 'AZ' } },
+    storyDefault: { args: { initials: 'AZ' }, variantKeys: ['size', 'shape', 'type'] },
   },
 
   {
@@ -116,6 +118,7 @@ export const archetypes: ArchetypeRule[] = [
     template: accordionItemTemplate,
     storyDefault: {
       args: { title: 'Section title', defaultOpen: true, children: 'Body content' },
+      variantKeys: [],
     },
   },
 ];

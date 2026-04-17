@@ -1,19 +1,26 @@
 import * as React from 'react';
 import { ThemeProvider as SCProvider, createGlobalStyle } from 'styled-components';
-import { rawTokens, type ThemeName } from '@dp/tokens';
+import { rawTokens, defaultMode, type ThemeName } from '@dp/tokens';
 import { buildTheme } from '../theme';
 
+const modeEntries = Object.entries(rawTokens) as [ThemeName, Record<string, string>][];
+const baseTokens = rawTokens[defaultMode as ThemeName] ?? modeEntries[0][1];
+
+const modeBlocks = modeEntries
+  .map(([mode, vars]) => {
+    const selector =
+      mode === (defaultMode as ThemeName)
+        ? `:root, [data-theme="${mode}"]`
+        : `[data-theme="${mode}"]`;
+    const body = Object.entries({ ...baseTokens, ...vars })
+      .map(([k, v]) => `${k}: ${v};`)
+      .join('\n    ');
+    return `${selector} {\n    ${body}\n  }`;
+  })
+  .join('\n  ');
+
 const GlobalStyle = createGlobalStyle`
-  :root, [data-theme="light"] {
-    ${Object.entries(rawTokens.light)
-      .map(([k, v]) => `${k}: ${v};`)
-      .join('\n    ')}
-  }
-  [data-theme="dark"] {
-    ${Object.entries({ ...rawTokens.light, ...rawTokens.dark })
-      .map(([k, v]) => `${k}: ${v};`)
-      .join('\n    ')}
-  }
+  ${modeBlocks}
   html, body {
     margin: 0;
     padding: 0;
@@ -31,7 +38,10 @@ export interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme = 'light', children }) => {
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({
+  theme = defaultMode as ThemeName,
+  children,
+}) => {
   React.useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme);

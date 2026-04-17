@@ -101,13 +101,18 @@ async function createNew(
     return writeComponent(snapshot, templated, registry, ctx, 'template');
   }
 
+  console.log(`[claude] no template for "${snapshot.name}" — falling back to Claude Code…`);
   const client = claudeFor(ctx);
   const generated = await client.completeJson<{
     type: 'create';
     componentName: string;
     fileName: string;
     source: string;
-  }>(SYSTEM_PROMPT, componentPrompt({ snapshot, figmaFileKey: ctx.figmaFileKey }));
+  }>(
+    SYSTEM_PROMPT,
+    componentPrompt({ snapshot, figmaFileKey: ctx.figmaFileKey }),
+    { label: `claude scaffolding ${snapshot.name}` },
+  );
 
   return writeComponent(snapshot, generated, registry, ctx, 'claude');
 }

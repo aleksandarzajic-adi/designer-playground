@@ -1,7 +1,9 @@
-import * as React from 'react';
 import type { Preview } from '@storybook/react';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import { ThemeProvider } from '@dp/ui';
+import { defaultMode, modes, type ThemeName } from '@dp/tokens';
+
+const themeMap = Object.fromEntries(modes.map((m) => [m, m])) as Record<ThemeName, string>;
 
 const preview: Preview = {
   parameters: {
@@ -10,12 +12,12 @@ const preview: Preview = {
   },
   decorators: [
     withThemeByDataAttribute({
-      themes: { light: 'light', dark: 'dark' },
-      defaultTheme: 'light',
+      themes: themeMap,
+      defaultTheme: defaultMode,
       attributeName: 'data-theme',
     }),
     (Story, ctx) => {
-      const theme = (ctx.globals.theme ?? 'light') as 'light' | 'dark';
+      const theme = (ctx.globals.theme ?? defaultMode) as ThemeName;
       return (
         <ThemeProvider theme={theme}>
           <Story />

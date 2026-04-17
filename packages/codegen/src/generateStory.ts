@@ -16,6 +16,7 @@ export interface StoryResult {
 }
 
 const STATE_KEYS = new Set(['state', 'status']);
+const SKIP_VARIANT_KEYS = new Set(['valuetype', 'assettype', 'active']);
 const STATE_VALUE_MAP: Record<string, string> = {
   disabled: 'disabled',
   loading: 'loading',
@@ -54,9 +55,16 @@ function renderStory(component: RegistryComponent): string {
   const normalized: Record<string, string[]> = {};
   const states = new Set<string>();
 
+  const allowList = archetype?.storyDefault?.variantKeys
+    ? new Set(archetype.storyDefault.variantKeys.map((k) => k.toLowerCase()))
+    : null;
+
   for (const [rawKey, rawValues] of Object.entries(component.variants ?? {})) {
     const key = camelKey(rawKey);
-    if (STATE_KEYS.has(key.toLowerCase())) {
+    const keyLower = key.toLowerCase();
+    if (SKIP_VARIANT_KEYS.has(keyLower)) continue;
+    if (allowList && !allowList.has(keyLower) && !STATE_KEYS.has(keyLower)) continue;
+    if (STATE_KEYS.has(keyLower)) {
       for (const v of rawValues) {
         const mapped = STATE_VALUE_MAP[v.toLowerCase()];
         if (mapped) states.add(mapped);

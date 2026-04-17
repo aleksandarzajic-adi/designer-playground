@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-04-17T13:11:22.039Z",
+  "updatedAt": "2026-04-17T14:10:14.626Z",
   "components": {
     "Input": {
       "name": "Input",
@@ -263,7 +263,7 @@
         ]
       },
       "figmaNodeId": "56:8830",
-      "figmaLastSyncedAt": "2026-04-17T11:22:44.455Z"
+      "figmaLastSyncedAt": "2026-04-17T14:09:27.219Z"
     },
     "Tooltip": {
       "name": "Tooltip",
@@ -852,7 +852,7 @@
         ]
       },
       "figmaNodeId": "157:10316",
-      "figmaLastSyncedAt": "2026-04-17T11:22:44.506Z"
+      "figmaLastSyncedAt": "2026-04-17T14:10:14.626Z"
     },
     "TextContentHeading": {
       "name": "TextContentHeading",

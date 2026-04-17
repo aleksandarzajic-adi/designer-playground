@@ -4,7 +4,7 @@ import { PaginationPage } from '@dp/ui';
 const meta: Meta<typeof PaginationPage> = {
   title: 'Components/PaginationPage',
   component: PaginationPage,
-  args: { children: 'PaginationPage' },
+  args: { children: '1' },
 };
 
 export default meta;

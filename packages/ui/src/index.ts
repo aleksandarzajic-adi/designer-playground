@@ -37,6 +37,7 @@ export * from './components/SwitchField';
 export * from './components/Tab';
 export * from './components/Tag';
 export * from './components/TagToggle';
+export * from './components/TagToggleGroup';
 export * from './components/TextContentHeading';
 export * from './components/TextContentTitle';
 export * from './components/TextLinkList';

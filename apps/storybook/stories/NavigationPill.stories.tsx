@@ -4,7 +4,7 @@ import { NavigationPill } from '@dp/ui';
 const meta: Meta<typeof NavigationPill> = {
   title: 'Components/NavigationPill',
   component: NavigationPill,
-  args: { children: 'NavigationPill' },
+  args: { children: 'Pill' },
 };
 
 export default meta;

@@ -4,7 +4,7 @@ import { TagToggle } from '@dp/ui';
 const meta: Meta<typeof TagToggle> = {
   title: 'Components/TagToggle',
   component: TagToggle,
-  args: { children: 'TagToggle' },
+  args: { children: 'Label' },
 };
 
 export default meta;

@@ -5,3 +5,4 @@ export * from './prompts';
 export * from './specFromSnapshot';
 export * from './templates';
 export * from './refreshBarrel';
+export * from './spinner';

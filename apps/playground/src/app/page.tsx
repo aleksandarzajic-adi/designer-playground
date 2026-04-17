@@ -25,10 +25,10 @@ export default function Home() {
 
   return (
     <Page>
-      <Stack direction="row" justify="space-between" align="center">
+      <Stack direction="row" justify="between" align="center">
         <Heading level={1}>Design Playground</Heading>
-        <Button variant="secondary" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-          {theme === 'light' ? 'Dark' : 'Light'} mode
+        <Button variant="neutral" onClick={() => setTheme(theme === 'sds-dark' ? 'sds-light' : 'sds-dark')}>
+          {theme === 'sds-dark' ? 'Light' : 'Dark'} mode
         </Button>
       </Stack>
 
@@ -38,14 +38,12 @@ export default function Home() {
             <Heading level={3}>Buttons</Heading>
             <Stack direction="row" gap={2} wrap>
               <Button variant="primary">Primary</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="danger">Danger</Button>
+              <Button variant="neutral">Neutral</Button>
+              <Button variant="subtle">Subtle</Button>
             </Stack>
             <Stack direction="row" gap={2}>
-              <Button size="sm">Small</Button>
-              <Button size="md">Medium</Button>
-              <Button size="lg">Large</Button>
+              <Button size="small">Small</Button>
+              <Button size="medium">Medium</Button>
             </Stack>
           </Stack>
         </Card>
@@ -69,7 +67,7 @@ export default function Home() {
               <Badge $tone="warning">Warning</Badge>
               <Badge $tone="danger">Danger</Badge>
             </Stack>
-            <Text $muted $size="sm">
+            <Text muted size="sm">
               Tokens flow from CSS variables.
             </Text>
           </Stack>

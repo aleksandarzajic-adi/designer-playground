@@ -4,7 +4,7 @@ import { IconButton } from '@dp/ui';
 const meta: Meta<typeof IconButton> = {
   title: 'Components/IconButton',
   component: IconButton,
-  args: { children: 'IconButton' },
+  args: { children: '★' },
   argTypes: {
     variant: { control: 'select', options: ['primary', 'neutral', 'subtle'] },
     size: { control: 'select', options: ['medium', 'small'] },

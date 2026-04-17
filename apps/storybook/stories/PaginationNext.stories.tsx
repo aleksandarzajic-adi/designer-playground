@@ -4,7 +4,7 @@ import { PaginationNext } from '@dp/ui';
 const meta: Meta<typeof PaginationNext> = {
   title: 'Components/PaginationNext',
   component: PaginationNext,
-  args: { children: 'PaginationNext' },
+  args: { children: '1' },
   argTypes: {
     disabled: { control: 'boolean' }
   },

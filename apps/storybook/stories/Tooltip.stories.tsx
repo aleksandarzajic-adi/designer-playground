@@ -4,7 +4,7 @@ import { Tooltip } from '@dp/ui';
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',
   component: Tooltip,
-  args: { children: 'Tooltip' },
+  args: { content: 'Tooltip text' },
   argTypes: {
     placement: { control: 'select', options: ['top', 'left', 'right', 'bottom'] }
   },

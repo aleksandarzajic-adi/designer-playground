@@ -1,4 +1,4 @@
-import { rawTokens, type ThemeName } from '@dp/tokens';
+import { rawTokens, defaultMode, type ThemeName } from '@dp/tokens';
 
 export interface ThemeColors {
   bgPrimary: string;
@@ -65,7 +65,7 @@ export interface Theme {
 const cssVar = (name: string) => `var(${name})`;
 
 export const theme: Theme = {
-  name: 'light',
+  name: defaultMode as ThemeName,
   colors: {
     bgPrimary: cssVar('--dp-color-bg-primary'),
     bgSurface: cssVar('--dp-color-bg-surface'),
