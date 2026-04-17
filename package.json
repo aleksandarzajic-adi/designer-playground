@@ -1,0 +1,35 @@
+{
+  "name": "design-playground",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build": "pnpm -r --filter=\"./packages/*\" build",
+    "dev": "pnpm -r --parallel --filter=\"./packages/*\" dev",
+    "playground": "pnpm --filter @dp/playground dev",
+    "storybook": "pnpm --filter @dp/storybook dev",
+    "clean": "pnpm -r exec rm -rf dist .next .turbo node_modules/.cache",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "extract": "node --env-file=.env --import tsx packages/figma-extractor/src/cli.ts",
+    "codegen": "node --env-file=.env --import tsx packages/codegen/src/cli.ts",
+    "ds:pull": "node --env-file=.env --import tsx packages/figma-extractor/src/cli.ts",
+    "ds:generate": "node --env-file=.env --import tsx packages/codegen/src/cli.ts",
+    "ds:sync": "pnpm ds:pull && pnpm ds:generate",
+    "ds:verify": "pnpm typecheck && pnpm build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.2",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.1",
+    "prettier": "^3.3.3",
+    "eslint": "^9.12.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

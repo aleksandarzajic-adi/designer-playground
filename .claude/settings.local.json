@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --filter @dp/diff-engine build)",
+      "Bash(pnpm --filter @dp/codegen build)",
+      "Bash(pnpm --filter @dp/ui build)",
+      "Bash(pnpm install *)"
+    ]
+  }
+}

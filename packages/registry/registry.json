@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-04-17T00:00:00.000Z",
+  "components": {
+    "Button": {
+      "name": "Button",
+      "filePath": "packages/ui/src/components/Button.tsx",
+      "exportName": "Button",
+      "description": "Primary action element",
+      "variants": {
+        "variant": ["primary", "secondary", "ghost", "danger"],
+        "size": ["sm", "md", "lg"]
+      },
+      "props": [
+        { "name": "variant", "type": "ButtonVariant", "optional": true, "defaultValue": "primary" },
+        { "name": "size", "type": "ButtonSize", "optional": true, "defaultValue": "md" },
+        { "name": "fullWidth", "type": "boolean", "optional": true, "defaultValue": "false" },
+        { "name": "loading", "type": "boolean", "optional": true }
+      ]
+    },
+    "Input": {
+      "name": "Input",
+      "filePath": "packages/ui/src/components/Input.tsx",
+      "exportName": "Input",
+      "props": [
+        { "name": "invalid", "type": "boolean", "optional": true },
+        { "name": "label", "type": "string", "optional": true }
+      ]
+    },
+    "Card": {
+      "name": "Card",
+      "filePath": "packages/ui/src/components/Card.tsx",
+      "exportName": "Card",
+      "props": [
+        { "name": "$elevation", "type": "'none' | 'sm' | 'md' | 'lg'", "optional": true },
+        { "name": "$padding", "type": "SpaceKey", "optional": true }
+      ]
+    },
+    "Badge": {
+      "name": "Badge",
+      "filePath": "packages/ui/src/components/Badge.tsx",
+      "exportName": "Badge",
+      "variants": {
+        "tone": ["neutral", "accent", "success", "warning", "danger"]
+      },
+      "props": [{ "name": "$tone", "type": "BadgeTone", "optional": true }]
+    }
+  }
+}
